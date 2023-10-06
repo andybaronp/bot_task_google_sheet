@@ -1,8 +1,8 @@
 node_modules
+queue.class.log
 bot_sessions
 db.json
 .env
 bot.qr.png
 core.class.log
 baileys.log
-queue.class.log
