@@ -68,8 +68,9 @@ const flowListTask = addKeyword([
   'Ok! vamos a listar tus pendientes',
   { delay: 2000 },
   async (ctx, { flowDynamic }) => {
-    const tasksList = await getTask(ctx)
+    const { tasksList, message } = await getTask(ctx)
     console.log(tasksList);
+    console.log(message);
     if (tasksList.length === 0) {
       return flowDynamic([
         { body: `*${ctx.pushName}* no tienes tareas pendientes` },

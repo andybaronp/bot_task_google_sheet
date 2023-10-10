@@ -36,8 +36,6 @@ async function saveTask(task) {
 }
 
 async function getTask(ctx) {
-  console.log({ ctx });
-
   let listTask = []
   try {
     await doc.loadInfo()
@@ -53,9 +51,10 @@ async function getTask(ctx) {
         })
       }
     }
-    return listTask
+    return { tasksList: listTask, message: 'Tareas encontradas' }
   } catch (error) {
-    return false
+    console.log(error);
+    return { tasksList: [], message: error }
   }
 }
 
