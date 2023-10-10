@@ -13,6 +13,7 @@ const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID, serviceAccountAuth)
 const { formatDate } = require("./formatDate")
 
 async function saveTask(task) {
+  console.log({ task });
   let rows = [
     {
       status: 'pendiente',
@@ -35,6 +36,8 @@ async function saveTask(task) {
 }
 
 async function getTask(ctx) {
+  console.log({ ctx });
+
   let listTask = []
   try {
     await doc.loadInfo()
