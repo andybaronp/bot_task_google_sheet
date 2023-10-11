@@ -13,7 +13,6 @@ const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID, serviceAccountAuth)
 const { formatDate } = require("./formatDate")
 
 async function saveTask(task) {
-  console.log({ task });
   let rows = [
     {
       status: 'pendiente',
@@ -23,6 +22,7 @@ async function saveTask(task) {
     },
   ]
   try {
+    await doc.useServiceAccountAuth(serviceAccountAuth);
     await doc.loadInfo()
     let sheet = doc.sheetsByIndex[1]
     for (let index = 0; index < rows.length; index++) {
@@ -38,6 +38,8 @@ async function saveTask(task) {
 async function getTask(ctx) {
   let listTask = []
   try {
+    await doc.useServiceAccountAuth(serviceAccountAuth);
+
     await doc.loadInfo()
     const sheet = doc.sheetsByIndex[1]
     const rows = await sheet.getRows()
@@ -60,6 +62,8 @@ async function getTask(ctx) {
 
 async function updatedTask(task) {
   try {
+    await doc.useServiceAccountAuth(serviceAccountAuth);
+
     await doc.loadInfo()
     const sheet = doc.sheetsByIndex[1]
     const rows = await sheet.getRows()
