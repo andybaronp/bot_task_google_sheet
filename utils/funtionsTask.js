@@ -4,7 +4,7 @@ const RESPONSES_SHEET_ID = process.env.SHEET_ID //Aquí pondras el ID de tu hoja
 const { JWT } = require('google-auth-library')
 const serviceAccountAuth = new JWT({
   email: process.env.CLIENT_EMAIL,
-  key: process.env.PRIVATE_KEY,
+  key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 })
 const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID, serviceAccountAuth)
@@ -22,7 +22,7 @@ async function saveTask(task) {
     },
   ]
   try {
-    await doc.useServiceAccountAuth(serviceAccountAuth);
+
     await doc.loadInfo()
     let sheet = doc.sheetsByIndex[1]
     for (let index = 0; index < rows.length; index++) {
@@ -38,8 +38,6 @@ async function saveTask(task) {
 async function getTask(ctx) {
   let listTask = []
   try {
-    await doc.useServiceAccountAuth(serviceAccountAuth);
-
     await doc.loadInfo()
     const sheet = doc.sheetsByIndex[1]
     const rows = await sheet.getRows()
@@ -62,8 +60,6 @@ async function getTask(ctx) {
 
 async function updatedTask(task) {
   try {
-    await doc.useServiceAccountAuth(serviceAccountAuth);
-
     await doc.loadInfo()
     const sheet = doc.sheetsByIndex[1]
     const rows = await sheet.getRows()
