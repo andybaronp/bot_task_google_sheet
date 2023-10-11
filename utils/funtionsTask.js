@@ -4,11 +4,10 @@ const RESPONSES_SHEET_ID = process.env.SHEET_ID //Aquí pondras el ID de tu hoja
 const { JWT } = require('google-auth-library')
 const serviceAccountAuth = new JWT({
   email: process.env.CLIENT_EMAIL,
-  key: process.env.PRIVATE_KEY.split(String.raw`\n`).join('\n'),
+  key: process.env.PRIVATE_KEY,
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 })
 const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID, serviceAccountAuth)
-
 
 const { formatDate } = require("./formatDate")
 
